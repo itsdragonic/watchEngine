@@ -9,6 +9,7 @@
       margin: 0;
       background-color: #121212;
       font-family: Arial, sans-serif;
+      overflow: hidden; /* Prevent native scrolling behavior */
     }
 
     .scroll-container {
@@ -38,32 +39,52 @@
 
   <script>
     const circle = document.querySelector('.circle');
+    const middleY = 2500; // Vertical middle of the page
+    const middleX = 0; // Horizontal middle for future use if needed
 
-    // Middle of the page (arbitrary large value to ensure space)
-    const middleY = 2500;
+    let resetColorTimeout; // Timeout ID for resetting color
+
+    // Function to reset user to center
+    function resetToCenter() {
+      window.scrollTo({ top: middleY, left: middleX, behavior: 'instant' });
+    }
 
     // Function to handle scroll events
-    window.onscroll = () => {
+    function handleScroll() {
       const currentScroll = window.scrollY;
+
+      // Change circle color based on scroll direction
       if (currentScroll > middleY) {
-        // Scrolled down
         circle.style.backgroundColor = 'green';
         console.log('Down');
       } else if (currentScroll < middleY) {
-        // Scrolled up
         circle.style.backgroundColor = 'blue';
         console.log('Up');
       }
 
-      // Reset position to the middle after a small delay to ensure smooth experience
-      setTimeout(() => {
-        window.scrollTo(0, middleY);
-      }, 10);
-    };
+      // Reset the scroll position
+      resetToCenter();
 
-    // Start at the middle position
+      // Reset the circle color to red after 500ms
+      clearTimeout(resetColorTimeout); // Clear previous timeout if any
+      resetColorTimeout = setTimeout(() => {
+        circle.style.backgroundColor = 'red';
+      }, 500);
+    }
+
+    // Continuously keep the user at the center
+    function continuousCentering() {
+      resetToCenter();
+      requestAnimationFrame(continuousCentering); // Call recursively for constant updates
+    }
+
+    // Add scroll event listener
+    window.onscroll = handleScroll;
+
+    // Initialize centering on page load
     window.onload = () => {
-      window.scrollTo(0, middleY);
+      resetToCenter();
+      continuousCentering();
     };
   </script>
 </body>
