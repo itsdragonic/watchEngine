@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll Color Change</title>
+  <title>Apple Watch Scroll</title>
   <style>
     body {
       margin: 0;
-      height: 2000px; /* Large enough to allow scrolling */
-      background-color: #fff;
+      background-color: #121212;
+      font-family: Arial, sans-serif;
+    }
+
+    .scroll-container {
+      height: 5000px; /* Large height to allow scrolling */
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-y: scroll;
+      position: relative;
     }
 
     .circle {
-      position: fixed;
+      position: fixed; /* Stay in the center */
       width: 50px;
       height: 50px;
       background-color: red;
@@ -28,21 +32,36 @@
   </style>
 </head>
 <body>
-  <div class="circle"></div>
+  <div class="scroll-container">
+    <div class="circle"></div>
+  </div>
 
   <script>
     const circle = document.querySelector('.circle');
 
-    window.onwheel = (e) => {
-      if (e.deltaY >= 0) {
-        // Scroll Down
+    // Middle of the page (arbitrary large value to ensure space)
+    const middleY = 2500;
+
+    // Function to handle scroll events
+    window.onscroll = () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > middleY) {
+        // Scrolled down
         circle.style.backgroundColor = 'green';
         console.log('Down');
-      } else {
-        // Scroll Up
+      } else if (currentScroll < middleY) {
+        // Scrolled up
         circle.style.backgroundColor = 'blue';
         console.log('Up');
       }
+
+      // Reset position to the middle
+      window.scrollTo(0, middleY);
+    };
+
+    // Start at the middle position
+    window.onload = () => {
+      window.scrollTo(0, middleY);
     };
   </script>
 </body>
