@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Watch Scroll</title>
+  <title>Apple Watch Scroll Fix</title>
   <style>
     body {
       margin: 0;
-      background-color: #121212;
+      background-color: #fff;
       font-family: Arial, sans-serif;
     }
 
@@ -20,7 +20,7 @@
     }
 
     .circle {
-      position: fixed; /* Stay in the center */
+      position: fixed; /* Keeps the circle visually in the center */
       width: 50px;
       height: 50px;
       background-color: red;
@@ -55,8 +55,10 @@
         console.log('Up');
       }
 
-      // Reset position to the middle
-      window.scrollTo(0, middleY);
+      // Reset position to the middle after a small delay to ensure smooth experience
+      setTimeout(() => {
+        window.scrollTo(0, middleY);
+      }, 10);
     };
 
     // Start at the middle position
