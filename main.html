@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Interaction</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh; /* Full window height */
+      width: 100vw; /* Full window width */
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* Prevent scrollbars */
+    }
+
+    .circle {
+      position: fixed;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none; /* Prevent interaction interference */
+    }
+  </style>
+</head>
+<body>
+  <div class="circle"></div>
+
+  <script>
+    const circle = document.querySelector('.circle');
+    let lastDeltaY = 0;
+    let colorTimeout;
+
+    const changeColor = (color) => {
+      circle.style.backgroundColor = color;
+
+      // Reset to red after 1 second
+      clearTimeout(colorTimeout);
+      colorTimeout = setTimeout(() => {
+        circle.style.backgroundColor = 'red';
+      }, 1000);
+    };
+
+    window.addEventListener('wheel', (event) => {
+      if (event.deltaY > 0) {
+        changeColor('green'); // Scrolling down
+      } else if (event.deltaY < 0) {
+        changeColor('blue'); // Scrolling up
+      } else if (event.deltaX > 0) {
+        changeColor('yellow'); // Scrolling right
+      } else if (event.deltaX < 0) {
+        changeColor('purple'); // Scrolling left
+      }
+
+      lastDeltaY = event.deltaY;
+    });
+  </script>
+</body>
+</html>
