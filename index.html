@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apple Watch Scroll Fix</title>
+  <title>Apple Watch Smooth Scroll</title>
   <style>
     body {
       margin: 0;
-      background-color: #fff;
+      background-color: #121212;
       font-family: Arial, sans-serif;
+      overflow: hidden; /* Prevent natural scroll bouncing on small screens */
     }
 
     .scroll-container {
       height: 5000px; /* Large height to allow scrolling */
+      width: 100vw; /* Full-width page */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -39,11 +41,16 @@
   <script>
     const circle = document.querySelector('.circle');
 
-    // Middle of the page (arbitrary large value to ensure space)
+    // Middle of the scroll container (large enough to ensure space)
     const middleY = 2500;
+    let isScrolling = false;
 
-    // Function to handle scroll events
+    // Scroll detection and handling
     window.onscroll = () => {
+      if (isScrolling) return; // Prevent triggering multiple times
+
+      isScrolling = true;
+
       const currentScroll = window.scrollY;
       if (currentScroll > middleY) {
         // Scrolled down
@@ -55,10 +62,13 @@
         console.log('Up');
       }
 
-      // Reset position to the middle after a small delay to ensure smooth experience
+      // Smoothly reset position to the middle
+      window.scrollTo({ top: middleY, behavior: 'instant' });
+
+      // Reset the "isScrolling" flag after slight delay
       setTimeout(() => {
-        window.scrollTo(0, middleY);
-      }, 10);
+        isScrolling = false;
+      }, 50);
     };
 
     // Start at the middle position
