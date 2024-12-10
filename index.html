@@ -3,29 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll Interaction</title>
+  <title>Scroll Color Change</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      height: 2000px; /* Makes the page much larger */
-      width: 2000px; /* Allows full scrolling in all directions */
-      background-color: #121212;
-      position: relative;
-    }
-
-    .rectangle {
-      position: absolute;
-      width: 430px; /* Approximate Apple Watch screen width */
-      height: 352px; /* Approximate Apple Watch screen height */
-      background-color: white;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      height: 2000px; /* Large enough to allow scrolling */
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-y: scroll;
     }
 
     .circle {
-      position: absolute;
+      position: fixed;
       width: 50px;
       height: 50px;
       background-color: red;
@@ -37,54 +28,22 @@
   </style>
 </head>
 <body>
-  <div class="rectangle">
-    <div class="circle"></div>
-  </div>
+  <div class="circle"></div>
 
   <script>
-    const rectangle = document.querySelector('.rectangle');
     const circle = document.querySelector('.circle');
-    let lastScrollX = window.scrollX;
-    let lastScrollY = window.scrollY;
-    let colorTimeout;
 
-    const changeColor = (color) => {
-      circle.style.backgroundColor = color;
-
-      // Reset to red after 1 second
-      clearTimeout(colorTimeout);
-      colorTimeout = setTimeout(() => {
-        circle.style.backgroundColor = 'red';
-      }, 1000);
-    };
-
-    const updatePosition = () => {
-      // Keep the rectangle centered
-      rectangle.style.transform = `translate(${-window.scrollX}px, ${-window.scrollY}px)`;
-    };
-
-    window.addEventListener('scroll', () => {
-      const currentScrollX = window.scrollX;
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY) {
-        changeColor('green'); // Scroll down
-      } else if (currentScrollY < lastScrollY) {
-        changeColor('blue'); // Scroll up
-      } else if (currentScrollX > lastScrollX) {
-        changeColor('yellow'); // Scroll right
-      } else if (currentScrollX < lastScrollX) {
-        changeColor('purple'); // Scroll left
+    window.onwheel = (e) => {
+      if (e.deltaY >= 0) {
+        // Scroll Down
+        circle.style.backgroundColor = 'green';
+        console.log('Down');
+      } else {
+        // Scroll Up
+        circle.style.backgroundColor = 'blue';
+        console.log('Up');
       }
-
-      lastScrollX = currentScrollX;
-      lastScrollY = currentScrollY;
-
-      updatePosition();
-    });
-
-    // Initial position update
-    updatePosition();
+    };
   </script>
 </body>
 </html>
