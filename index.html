@@ -1,91 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Engine</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #121212;
-      font-family: Arial, sans-serif;
-      overflow: hidden; /* Prevent native scrolling behavior */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Size Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
 
-    .scroll-container {
-      height: 5000px; /* Large height to allow scrolling */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+        #container {
+            width: 430px;
+            height: 352px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
 
-    .circle {
-      position: fixed; /* Keeps the circle visually in the center */
-      width: 50px;
-      height: 50px;
-      background-color: red;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+        #red-circle {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-  <div class="scroll-container">
-    <div class="circle"></div>
-  </div>
-
-  <script>
-    const circle = document.querySelector('.circle');
-    const middleY = 2500; // Vertical middle of the page
-    const middleX = 0; // Horizontal middle for future use if needed
-
-    let resetColorTimeout; // Timeout ID for resetting color
-
-    // Function to reset user to center
-    function resetToCenter() {
-      window.scrollTo({ top: middleY, left: middleX, behavior: 'instant' });
-    }
-
-    // Function to handle scroll events
-    function handleScroll() {
-      const currentScroll = window.scrollY;
-
-      // Change circle color based on scroll direction
-      if (currentScroll > middleY) {
-        circle.style.backgroundColor = 'green';
-        console.log('Down');
-      } else if (currentScroll < middleY) {
-        circle.style.backgroundColor = 'blue';
-        console.log('Up');
-      }
-
-      // Reset the scroll position
-      resetToCenter();
-
-      // Reset the circle color to red after 500ms
-      clearTimeout(resetColorTimeout); // Clear previous timeout if any
-      resetColorTimeout = setTimeout(() => {
-        circle.style.backgroundColor = 'red';
-      }, 500);
-    }
-
-    // Continuously keep the user at the center
-    function continuousCentering() {
-      resetToCenter();
-      requestAnimationFrame(continuousCentering); // Call recursively for constant updates
-    }
-
-    // Add scroll event listener
-    window.onscroll = handleScroll;
-
-    // Initialize centering on page load
-    window.onload = () => {
-      resetToCenter();
-      continuousCentering();
-    };
-  </script>
+    <div id="container">
+        <div id="red-circle"></div>
+    </div>
 </body>
 </html>
