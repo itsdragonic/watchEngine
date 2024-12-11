@@ -9,7 +9,6 @@
             margin: 0;
             background-color: #121212;
             font-family: Arial, sans-serif;
-            overflow: hidden; /* Prevent native scrolling behavior */
         }
 
         .rectangle {
@@ -36,7 +35,7 @@
 
         .middle-value {
             position: fixed;
-            color: black;
+            color: red;
             font-size: 16px;
             top: 10px;
             left: 10px;
@@ -50,19 +49,19 @@
 
     <script>
         const circle = document.querySelector('.circle');
-        const middleY = 2500; // Vertical middle of the page
         const middleValueDisplay = document.getElementById('middleValue');
 
         let resetColorTimeout; // Timeout ID for resetting color
 
         // Function to reset user to center
         function resetToCenter() {
-            window.scrollTo({ top: middleY, left: 0, behavior: 'instant' });
+            window.scrollTo({ top: document.body.scrollHeight / 2, left: 0, behavior: 'instant' });
         }
 
         // Function to handle scroll events
         function handleScroll() {
             const currentScroll = window.scrollY;
+            const middleY = document.body.scrollHeight / 2; // Adjusted to use dynamic page height
 
             // Change circle color based on scroll direction
             if (currentScroll > middleY + 1) { // Allow slight buffer to detect proper scrolling direction
@@ -94,7 +93,7 @@
         window.onload = () => {
             resetToCenter();
             continuousCentering();
-            middleValueDisplay.textContent = `Middle Y: ${middleY}`;
+            middleValueDisplay.textContent = `Middle Y: ${document.body.scrollHeight / 2}`;
         };
     </script>
 </body>
