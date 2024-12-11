@@ -7,7 +7,6 @@
     <style>
         body {
             margin: 0;
-            height: 2500px;
             background-color: #121212;
             font-family: Arial, sans-serif;
         }
@@ -18,7 +17,7 @@
             height: 430px;
             background: linear-gradient(to bottom, red, orange, yellow, green, blue, indigo, violet); /* Rainbow gradient */
             border-radius: 20px;
-            top: calc(50% - 215px - 30px); /* Centered vertically with an offset */
+            top: calc(50% - 215px - 50px); /* Centered vertically with an offset */
             left: calc(50% - 176px - 50px); /* Centered horizontally with an offset */
             transform: translate(0, 0); /* No translation needed since offsets are manually added */
         }
@@ -79,7 +78,7 @@
             clearTimeout(resetColorTimeout); // Clear previous timeout if any
             resetColorTimeout = setTimeout(() => {
                 circle.style.backgroundColor = 'red';
-            }, 250);
+            }, 500);
         }
 
         // Continuously keep the user at the center
