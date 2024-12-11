@@ -43,9 +43,9 @@
             const currentScroll = window.scrollY;
 
             // Change circle color based on scroll direction
-            if (currentScroll > middleY + 1) { // Allow slight buffer to detect proper scrolling direction
+            if (currentScroll > middleY) {
                 circle.style.backgroundColor = 'green';
-            } else if (currentScroll < middleY - 1) {
+            } else if (currentScroll < middleY) {
                 circle.style.backgroundColor = 'blue';
             }
 
