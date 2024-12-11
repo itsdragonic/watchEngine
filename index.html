@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Watch Engine</title>
     <style>
         body {
@@ -14,12 +15,13 @@
             position: fixed;
             width: 352px;
             height: 430px;
-            background-color: white;
+            background: linear-gradient(to bottom, red, orange, yellow, green, blue, indigo, violet); /* Rainbow gradient */
             border-radius: 20px;
             top: calc(50% - 215px - 50px); /* Centered vertically with an offset */
             left: calc(50% - 176px - 50px); /* Centered horizontally with an offset */
             transform: translate(0, 0); /* No translation needed since offsets are manually added */
         }
+
 
         .circle {
             position: fixed; /* Keeps the circle visually in the center */
