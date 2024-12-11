@@ -1,91 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Watch Engine</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #121212;
-      font-family: Arial, sans-serif;
-      /*overflow: hidden; *//* Prevent native scrolling behavior */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Watch Engine</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #121212;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent native scrolling behavior */
+        }
 
-    .scroll-container {
-      height: 5000px; /* Large height to allow scrolling */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .circle {
-      position: fixed; /* Keeps the circle visually in the center */
-      width: 50px;
-      height: 50px;
-      background-color: red;
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+        .circle {
+            position: fixed; /* Keeps the circle visually in the center */
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-  <div class="scroll-container">
     <div class="circle"></div>
-  </div>
 
-  <script>
-    const circle = document.querySelector('.circle');
-    const middleY = 2500; // Vertical middle of the page
-    const middleX = 0; // Horizontal middle for future use if needed
+    <script>
+        const circle = document.querySelector('.circle');
+        const middleY = 2500; // Vertical middle of the page
 
-    let resetColorTimeout; // Timeout ID for resetting color
+        let resetColorTimeout; // Timeout ID for resetting color
 
-    // Function to reset user to center
-    function resetToCenter() {
-      window.scrollTo({ top: middleY, left: middleX, behavior: 'instant' });
-    }
+        // Function to reset user to center
+        function resetToCenter() {
+            window.scrollTo({ top: middleY, left: 0, behavior: 'instant' });
+        }
 
-    // Function to handle scroll events
-    function handleScroll() {
-      const currentScroll = window.scrollY;
+        // Function to handle scroll events
+        function handleScroll() {
+            const currentScroll = window.scrollY;
 
-      // Change circle color based on scroll direction
-      if (currentScroll > middleY) {
-        circle.style.backgroundColor = 'green';
-        console.log('Down');
-      } else if (currentScroll < middleY) {
-        circle.style.backgroundColor = 'blue';
-        console.log('Up');
-      }
+            // Change circle color based on scroll direction
+            if (currentScroll > middleY) {
+                circle.style.backgroundColor = 'green';
+            } else if (currentScroll < middleY) {
+                circle.style.backgroundColor = 'blue';
+            }
 
-      // Reset the scroll position
-      resetToCenter();
+            // Reset the scroll position
+            resetToCenter();
 
-      // Reset the circle color to red after 500ms
-      clearTimeout(resetColorTimeout); // Clear previous timeout if any
-      resetColorTimeout = setTimeout(() => {
-        circle.style.backgroundColor = 'red';
-      }, 500);
-    }
+            // Reset the circle color to red after 500ms
+            clearTimeout(resetColorTimeout); // Clear previous timeout if any
+            resetColorTimeout = setTimeout(() => {
+                circle.style.backgroundColor = 'red';
+            }, 500);
+        }
 
-    // Continuously keep the user at the center
-    function continuousCentering() {
-      resetToCenter();
-      requestAnimationFrame(continuousCentering); // Call recursively for constant updates
-    }
+        // Continuously keep the user at the center
+        function continuousCentering() {
+            resetToCenter();
+            requestAnimationFrame(continuousCentering); // Call recursively for constant updates
+        }
 
-    // Add scroll event listener
-    window.onscroll = handleScroll;
+        // Add scroll event listener
+        window.onscroll = handleScroll;
 
-    // Initialize centering on page load
-    window.onload = () => {
-      resetToCenter();
-      continuousCentering();
-    };
-  </script>
+        // Initialize centering on page load
+        window.onload = () => {
+            resetToCenter();
+            continuousCentering();
+        };
+    </script>
 </body>
 </html>
